@@ -1,0 +1,339 @@
+
+<!DOCTYPE html><html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>SmartWeb Store</title>
+  <style>
+    :root{
+      --bg:#f6f7fb; 
+      --text:#1f2937; 
+      --muted:#6b7280; 
+      --primary:#7c3aed; /* purple */
+      --primary-2:#ec4899; /* pink */
+      --accent:#10b981; /* green */
+      --card:#ffffff;
+      --dark:#0f172a;
+      --shadow:0 10px 25px rgba(2,6,23,.12);
+      --radius:18px;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,'Helvetica Neue',Arial,'Noto Sans',sans-serif;background:var(--bg);color:var(--text)}/* Header */
+.hero{
+  background: radial-gradient(1200px 600px at 10% 10%, rgba(124,58,237,.25), transparent 60%),
+              radial-gradient(900px 500px at 90% 0%, rgba(236,72,153,.25), transparent 60%),
+              linear-gradient(135deg, #1e293b, #0b1220);
+  color:#fff;
+  padding:96px 20px 56px;
+  text-align:center;
+  position:relative;
+  overflow:hidden;
+}
+.hero h1{font-size: clamp(2rem, 4vw, 3rem); margin:0 0 8px}
+.hero p{margin:0 auto;max-width:800px;color:#e2e8f0;font-size:1.05rem}
+
+/* Nav */
+.nav{
+  position:sticky;top:0;z-index:50;backdrop-filter:saturate(160%) blur(8px);
+  background:rgba(15,23,42,.75);border-bottom:1px solid rgba(255,255,255,.08);
+}
+.nav-inner{max-width:1150px;margin:auto;display:flex;align-items:center;gap:16px;padding:10px 16px}
+.brand{display:flex;align-items:center;gap:10px;color:#fff;text-decoration:none;font-weight:700}
+.brand .dot{width:10px;height:10px;border-radius:999px;background:linear-gradient(135deg,var(--primary),var(--primary-2));display:inline-block}
+.links{margin-left:auto;display:flex;gap:16px;flex-wrap:wrap}
+.links a{color:#e5e7eb;text-decoration:none;font-weight:600;padding:8px 12px;border-radius:999px}
+.links a:hover{background:rgba(255,255,255,.08)}
+
+/* Sections */
+.section{max-width:1150px;margin:40px auto;padding:0 16px}
+.section h2{font-size: clamp(1.6rem, 3vw, 2rem);margin:0 0 10px}
+.section p.lead{color:var(--muted);margin:0 0 24px}
+
+/* Categories */
+.cat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px}
+.cat{
+  background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden;position:relative;cursor:pointer;transition:transform .25s ease, box-shadow .25s ease
+}
+.cat:hover{transform:translateY(-6px);box-shadow:0 14px 30px rgba(2,6,23,.18)}
+.cat img{width:100%;height:120px;object-fit:cover;display:block}
+.cat .label{display:flex;align-items:center;justify-content:space-between;padding:12px 14px}
+.cat .label span{font-weight:700}
+.chip{font-size:.75rem;background:#eef2ff;color:#4338ca;padding:4px 8px;border-radius:999px}
+
+/* Products */
+.toolbar{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-bottom:14px}
+.search{flex:1;min-width:220px}
+.search input{width:100%;padding:12px 14px;border-radius:12px;border:1px solid #e5e7eb;outline:none}
+.filter{display:flex;gap:8px;flex-wrap:wrap}
+.btn{border:0;padding:10px 14px;border-radius:999px;font-weight:700;cursor:pointer}
+.btn-pill{background:#eef2ff;color:#3730a3}
+.btn-pill.active{background:linear-gradient(135deg,var(--primary),var(--primary-2));color:#fff}
+
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px}
+.card{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden;display:flex;flex-direction:column}
+.thumb{width:100%;height:180px;object-fit:cover}
+.content{padding:14px 16px;display:flex;flex-direction:column;gap:8px}
+.price-row{display:flex;align-items:center;justify-content:space-between}
+.price{font-weight:800}
+.tag{font-size:.75rem;background:#ecfeff;color:#0e7490;padding:4px 8px;border-radius:999px}
+.add{margin-top:6px;background:linear-gradient(135deg,var(--primary),var(--primary-2));color:#fff}
+.add:hover{filter:brightness(1.05)}
+
+/* Cart */
+.cart{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden}
+table{width:100%;border-collapse:collapse}
+th,td{padding:12px;border-bottom:1px solid #eef2f7;text-align:left}
+th{background:#f8fafc}
+.qty{display:flex;align-items:center;gap:6px}
+.qty button{padding:4px 10px;border-radius:8px;border:1px solid #e5e7eb;background:#fff;cursor:pointer}
+.remove{background:#fee2e2;color:#b91c1c}
+.cart-footer{display:flex;justify-content:space-between;align-items:center;padding:12px 16px}
+.total{font-weight:900}
+.checkout{background:linear-gradient(135deg,var(--accent),#34d399);color:#073b2a}
+
+/* Forms */
+.panel{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);padding:20px}
+.form{display:grid;gap:12px;max-width:520px}
+.form input,.form textarea{padding:12px 14px;border-radius:12px;border:1px solid #e5e7eb;outline:none}
+.primary{background:linear-gradient(135deg,var(--primary),var(--primary-2));color:#fff}
+
+/* Footer */
+footer{margin-top:50px;background:var(--dark);color:#cbd5e1}
+.foot{max-width:1150px;margin:auto;padding:28px 16px;display:grid;gap:18px;grid-template-columns:1fr 1fr}
+.social{display:flex;gap:10px;flex-wrap:wrap}
+.social a{color:#e2e8f0;text-decoration:none;background:rgba(255,255,255,.08);padding:8px 12px;border-radius:999px}
+.copy{border-top:1px solid rgba(255,255,255,.12);padding:16px;text-align:center;color:#94a3b8}
+
+@media (max-width:720px){
+  .foot{grid-template-columns:1fr}
+}
+
+  </style>
+</head>
+<body>
+  <!-- NAV -->
+  <div class="nav">
+    <div class="nav-inner">
+      <a href="#top" class="brand"><span class="dot"></span>SmartWeb Store</a>
+      <div class="links">
+        <a href="#categories">Categories</a>
+        <a href="#products">Products</a>
+        <a href="#cart">Cart</a>
+        <a href="#login">Login</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+      </div>
+    </div>
+  </div>  <!-- HERO -->  <header id="top" class="hero">
+    <h1>Shopping Made Smart, Stylish & Simple</h1>
+    <p>Discover trending fashion, gadgets and accessories. Beautiful UI</p>
+  </header>  <!-- CATEGORIES -->  <section id="categories" class="section">
+    <h2>Shop by Categories</h2>
+    <p class="lead">Click a category to filter products instantly.</p>
+    <div class="cat-grid" id="catGrid">
+      <div class="cat" data-cat="all">
+        <img src="https://images.unsplash.com/photo-1544947950-fa07a98d237f?q=80&w=1200&auto=format&fit=crop" alt="All"/>
+        <div class="label"><span>All Products</span><span class="chip">Show All</span></div>
+      </div>
+      <div class="cat" data-cat="clothes">
+        <img src="https://images.unsplash.com/photo-1520975922375-75d5f898ec2b?q=80&w=1200&auto=format&fit=crop" alt="Clothes"/>
+        <div class="label"><span>Clothes</span><span class="chip">New</span></div>
+      </div>
+      <div class="cat" data-cat="shoes">
+        <img src="https://images.unsplash.com/photo-1520256862855-398228c41684?q=80&w=1200&auto=format&fit=crop" alt="Shoes"/>
+        <div class="label"><span>Sneakers</span><span class="chip">Hot</span></div>
+      </div>
+      <div class="cat" data-cat="electronics">
+        <img src="https://images.unsplash.com/photo-1517336714731-489689fd1ca8?q=80&w=1200&auto=format&fit=crop" alt="Electronics"/>
+        <div class="label"><span>Electronics</span><span class="chip">Deals</span></div>
+      </div>
+      <div class="cat" data-cat="bags">
+        <img src="https://images.unsplash.com/photo-1547949003-9792a18a2601?q=80&w=1200&auto=format&fit=crop" alt="Bags"/>
+        <div class="label"><span>Bags</span><span class="chip">Trendy</span></div>
+      </div>
+    </div>
+  </section>  <!-- PRODUCTS -->  <section id="products" class="section">
+    <h2>Featured Products</h2>
+    <p class="lead">High‑quality images, prices and Add to Cart demo.</p><div class="toolbar">
+  <div class="search"><input id="search" type="text" placeholder="Search products..."/></div>
+  <div class="filter" id="filterBtns">
+    <button class="btn btn-pill active" data-cat="all">All</button>
+    <button class="btn btn-pill" data-cat="clothes">Clothes</button>
+    <button class="btn btn-pill" data-cat="shoes">Shoes</button>
+    <button class="btn btn-pill" data-cat="electronics">Electronics</button>
+    <button class="btn btn-pill" data-cat="bags">Bags</button>
+  </div>
+</div>
+
+<div class="grid" id="productGrid"></div>
+
+  </section>  <!-- CART -->  <section id="cart" class="section">
+    <h2>Your Cart</h2>
+    <p class="lead">This is a front‑end demo (no backend). Quantities and total update instantly.</p>
+    <div class="cart" id="cartPanel">
+      <table>
+        <thead>
+          <tr><th>Item</th><th>Price</th><th>Qty</th><th>Subtotal</th><th>Action</th></tr>
+        </thead>
+        <tbody id="cartBody">
+          <tr><td colspan="5" style="text-align:center;color:var(--muted)">Cart is empty</td></tr>
+        </tbody>
+      </table>
+      <div class="cart-footer">
+        <div class="total" id="cartTotal">Total: $0.00</div>
+        <button class="btn checkout">Proceed to Checkout</button>
+      </div>
+    </div>
+  </section>  <!-- LOGIN / SIGNUP -->  <section id="login" class="section">
+    <h2>Login / Sign Up</h2>
+    <p class="lead">Front‑end only (stores nothing). Use for project demo.</p>
+    <div class="panel">
+      <div style="display:grid;gap:20px;grid-template-columns:1fr 1fr">
+        <form class="form" onsubmit="event.preventDefault(); alert('Logged in (demo)');">
+          <h3>Login</h3>
+          <input type="email" placeholder="Email" required />
+          <input type="password" placeholder="Password" required />
+          <button class="btn primary">Login</button>
+        </form>
+        <form class="form" onsubmit="event.preventDefault(); alert('Account created (demo)');">
+          <h3>Create Account</h3>
+          <input type="text" placeholder="Full Name" required />
+          <input type="email" placeholder="Email" required />
+          <input type="password" placeholder="Password" minlength="6" required />
+          <button class="btn primary">Sign Up</button>
+        </form>
+      </div>
+    </div>
+  </section>  <!-- ABOUT -->  <section id="about" class="section">
+    <h2>About SmartWeb Store</h2>
+    <div class="panel">
+      <p>SmartWeb Store is a demo e‑commerce UI created for HTML + CSS projects. It features a clean design, filters, search, a functional front‑end cart and responsive layout — all in a single file so you can copy‑paste easily.</p>
+    </div>
+  </section>  <!-- CONTACT -->  <section id="contact" class="section">
+    <h2>Contact Us</h2>
+    <div class="panel">
+      <form class="form" onsubmit="event.preventDefault(); alert('Message sent (demo)');">
+        <input type="text" placeholder="Your Name" required />
+        <input type="email" placeholder="Your Email" required />
+        <textarea rows="5" placeholder="Your Message" required></textarea>
+        <button class="btn primary">Send Message</button>
+      </form>
+    </div>
+  </section>  <!-- FOOTER -->  <footer>
+    <div class="foot">
+      <div>
+        <strong>SmartWeb Store</strong>
+        <p style="color:#94a3b8;margin-top:8px">Modern, responsive and ready for presentation.</p>
+      </div>
+      <div>
+        <div class="social">
+          <a href="#">Facebook</a>
+          <a href="#">Instagram</a>
+          <a href="#">Twitter</a>
+          <a href="#">YouTube</a>
+        </div>
+      </div>
+    </div>
+    <div class="copy">© 2025 SmartWeb Store. All rights reserved.</div>
+  </footer>  <script>
+    // ----- Demo data -----
+    const PRODUCTS = [
+      { id:1, title:'Classic Tee', price:20, cat:'clothes', img:'https://images.unsplash.com/photo-1512436991641-6745cdb1723f?q=80&w=1200&auto=format&fit=crop', tag:'Clothes' },
+      { id:2, title:'Denim Jacket', price:55, cat:'clothes', img:'https://images.unsplash.com/photo-1517940310602-75c0d3330ae0?q=80&w=1200&auto=format&fit=crop', tag:'Clothes' },
+      { id:3, title:'Running Sneakers', price:75, cat:'shoes', img:'https://images.unsplash.com/photo-1542291026-7eec264c27ff?q=80&w=1200&auto=format&fit=crop', tag:'Shoes' },
+      { id:4, title:'Leather Backpack', price:60, cat:'bags', img:'https://images.unsplash.com/photo-1518544801976-3e188ea703a7?q=80&w=1200&auto=format&fit=crop', tag:'Bags' },
+      { id:5, title:'Smart Watch', price:120, cat:'electronics', img:'https://images.unsplash.com/photo-1511735111819-9a3f7709049c?q=80&w=1200&auto=format&fit=crop', tag:'Electronics' },
+      { id:6, title:'Wireless Headphones', price:89, cat:'electronics', img:'https://images.unsplash.com/photo-1518442078318-85f2d28347a1?q=80&w=1200&auto=format&fit=crop', tag:'Electronics' },
+      { id:7, title:'Casual Sneakers', price:65, cat:'shoes', img:'https://images.unsplash.com/photo-1542291026-5128d8012f36?q=80&w=1200&auto=format&fit=crop', tag:'Shoes' },
+      { id:8, title:'Tote Bag', price:28, cat:'bags', img:'https://images.unsplash.com/photo-1543508282-6319a3e2621f?q=80&w=1200&auto=format&fit=crop', tag:'Bags' },
+    ];
+
+    const state = { filter:'all', search:'', cart:{} };
+
+    // ----- Helpers -----
+    const fmt = v => `$${v.toFixed(2)}`;
+
+    // ----- Render products -----
+    const grid = document.getElementById('productGrid');
+    function renderProducts(){
+      const q = state.search.toLowerCase();
+      const items = PRODUCTS.filter(p => (state.filter==='all' || p.cat===state.filter) && p.title.toLowerCase().includes(q));
+      grid.innerHTML = items.map(p => `
+        <article class="card" data-id="${p.id}">
+          <img class="thumb" src="${p.img}" alt="${p.title}" />
+          <div class="content">
+            <div class="price-row">
+              <h3 style="margin:0;font-size:1.05rem">${p.title}</h3>
+              <div class="price">${fmt(p.price)}</div>
+            </div>
+            <div class="tag">${p.tag}</div>
+            <button class="btn add" onclick="addToCart(${p.id})">Add to Cart</button>
+          </div>
+        </article>`).join('');
+    }
+
+    // ----- Filters -----
+    document.getElementById('filterBtns').addEventListener('click', (e)=>{
+      if(e.target.matches('[data-cat]')){
+        document.querySelectorAll('.btn-pill').forEach(b=>b.classList.remove('active'));
+        e.target.classList.add('active');
+        state.filter = e.target.dataset.cat;
+        renderProducts();
+      }
+    });
+    document.getElementById('catGrid').addEventListener('click',(e)=>{
+      const card = e.target.closest('.cat');
+      if(!card) return;
+      const cat = card.dataset.cat;
+      const btn = document.querySelector(`.btn-pill[data-cat="${cat}"]`) || document.querySelector('.btn-pill[data-cat="all"]');
+      btn.click();
+      document.getElementById('products').scrollIntoView({behavior:'smooth'});
+    });
+
+    document.getElementById('search').addEventListener('input', (e)=>{
+      state.search = e.target.value;
+      renderProducts();
+    });
+
+    // ----- Cart logic -----
+    function addToCart(id){
+      state.cart[id] = (state.cart[id]||0) + 1;
+      renderCart();
+    }
+    function dec(id){ if(state.cart[id]){ state.cart[id]--; if(state.cart[id]<=0) delete state.cart[id]; renderCart(); } }
+    function inc(id){ state.cart[id] = (state.cart[id]||0) + 1; renderCart(); }
+    function removeItem(id){ delete state.cart[id]; renderCart(); }
+
+    function renderCart(){
+      const body = document.getElementById('cartBody');
+      const entries = Object.entries(state.cart);
+      if(entries.length===0){
+        body.innerHTML = '<tr><td colspan="5" style="text-align:center;color:var(--muted)">Cart is empty</td></tr>';
+        document.getElementById('cartTotal').textContent = 'Total: $0.00';
+        return;
+      }
+      let total = 0;
+      body.innerHTML = entries.map(([id,qty])=>{
+        const p = PRODUCTS.find(x=>x.id==id);
+        const sub = p.price*qty; total += sub;
+        return `<tr>
+          <td>${p.title}</td>
+          <td>${fmt(p.price)}</td>
+          <td class="qty">
+            <button onclick="dec(${p.id})">-</button>
+            <strong>${qty}</strong>
+            <button onclick="inc(${p.id})">+</button>
+          </td>
+          <td>${fmt(sub)}</td>
+          <td><button class="btn remove" onclick="removeItem(${p.id})">Remove</button></td>
+        </tr>`
+      }).join('');
+      document.getElementById('cartTotal').textContent = `Total: ${fmt(total)}`;
+    }
+
+    // initial render
+    renderProducts();
+    renderCart();
+  </script></body>
+</html>
